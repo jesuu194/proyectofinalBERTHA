@@ -1,0 +1,21 @@
+<div class="container mt-4">
+	<div *ngIf="loading()" class="text-center my-4">
+		<div class="spinner-border" role="status">
+			<span class="visually-hidden">Cargando...</span>
+		</div>
+	</div>
+	<div *ngIf="error()" class="alert alert-danger">{{ error() }}</div>
+	<div *ngIf="product()" class="card">
+		<div class="card-body">
+			<h3 class="card-title">{{ product()?.nombre }}</h3>
+			<h6 class="card-subtitle mb-2 text-muted">ID: {{ product()?._id }}</h6>
+			<p class="card-text">{{ product()?.descripcion }}</p>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item"><b>Precio:</b> {{ product()?.precio | currency:'USD' }}</li>
+				<li class="list-group-item"><b>Stock:</b> {{ product()?.stock }}</li>
+			</ul>
+			<a class="btn btn-secondary mt-3" routerLink="/productos">Volver</a>
+			<a class="btn btn-warning mt-3 ms-2" [routerLink]="['/productos', product()?._id, 'editar']">Editar</a>
+		</div>
+	</div>
+</div>

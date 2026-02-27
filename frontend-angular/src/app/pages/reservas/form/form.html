@@ -1,0 +1,44 @@
+<div class="container mt-4">
+	<h2 *ngIf="!isEdit">Nueva reserva</h2>
+	<h2 *ngIf="isEdit">Editar reserva</h2>
+	<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+		<div class="mb-3">
+			<label for="cliente">Cliente</label>
+			<input id="cliente" class="form-control" formControlName="cliente" [class.is-invalid]="form.get('cliente')?.invalid && form.get('cliente')?.touched" title="Nombre del cliente" placeholder="Ej: Juan Pérez" />
+			<div class="invalid-feedback" *ngIf="form.get('cliente')?.errors?.['required']">El cliente es obligatorio</div>
+			<div class="invalid-feedback" *ngIf="form.get('cliente')?.errors?.['maxlength']">Máximo 50 caracteres</div>
+		</div>
+		<div class="mb-3">
+			<label for="producto">Producto</label>
+			<input id="producto" class="form-control" formControlName="producto" [class.is-invalid]="form.get('producto')?.invalid && form.get('producto')?.touched" title="Producto reservado" placeholder="Ej: Chatbot" />
+			<div class="invalid-feedback" *ngIf="form.get('producto')?.errors?.['required']">El producto es obligatorio</div>
+			<div class="invalid-feedback" *ngIf="form.get('producto')?.errors?.['maxlength']">Máximo 50 caracteres</div>
+		</div>
+		<div class="mb-3">
+			<label for="fecha">Fecha</label>
+			<input id="fecha" type="date" class="form-control" formControlName="fecha" [class.is-invalid]="form.get('fecha')?.invalid && form.get('fecha')?.touched" title="Fecha de la reserva" placeholder="YYYY-MM-DD" />
+			<div class="invalid-feedback" *ngIf="form.get('fecha')?.errors?.['required']">La fecha es obligatoria</div>
+		</div>
+		<div class="mb-3">
+			<label for="cantidad">Cantidad</label>
+			<input id="cantidad" type="number" class="form-control" formControlName="cantidad" [class.is-invalid]="form.get('cantidad')?.invalid && form.get('cantidad')?.touched" title="Cantidad reservada" placeholder="1" />
+			<div class="invalid-feedback" *ngIf="form.get('cantidad')?.errors?.['required']">La cantidad es obligatoria</div>
+			<div class="invalid-feedback" *ngIf="form.get('cantidad')?.errors?.['min']">Debe ser al menos 1</div>
+		</div>
+		<div class="mb-3">
+			<label for="estado">Estado</label>
+			<select id="estado" class="form-select" formControlName="estado" title="Selecciona el estado de la reserva" aria-label="Estado de la reserva">
+				<option value="pendiente">Pendiente</option>
+				<option value="confirmada">Confirmada</option>
+				<option value="cancelada">Cancelada</option>
+			</select>
+		</div>
+		<div *ngIf="error()" class="alert alert-danger">{{ error() }}</div>
+		<div *ngIf="success()" class="alert alert-success">{{ success() }}</div>
+		<button class="btn btn-primary" type="submit" [disabled]="form.invalid || loading()">
+			{{ isEdit ? 'Actualizar' : 'Crear' }}
+			<span *ngIf="loading()" class="spinner-border spinner-border-sm ms-2"></span>
+		</button>
+		<a class="btn btn-secondary ms-2" routerLink="/reservas">Cancelar</a>
+	</form>
+</div>

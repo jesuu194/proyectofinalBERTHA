@@ -1,0 +1,22 @@
+<div class="container mt-4">
+	<div *ngIf="loading()" class="text-center my-4">
+		<div class="spinner-border" role="status">
+			<span class="visually-hidden">Cargando...</span>
+		</div>
+	</div>
+	<div *ngIf="error()" class="alert alert-danger">{{ error() }}</div>
+	<div *ngIf="reserva()" class="card">
+		<div class="card-body">
+			<h3 class="card-title">Reserva de {{ reserva()?.cliente }}</h3>
+			<h6 class="card-subtitle mb-2 text-muted">ID: {{ reserva()?._id }}</h6>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item"><b>Producto:</b> {{ reserva()?.producto }}</li>
+				<li class="list-group-item"><b>Fecha:</b> {{ reserva()?.fecha | date:'shortDate' }}</li>
+				<li class="list-group-item"><b>Cantidad:</b> {{ reserva()?.cantidad }}</li>
+				<li class="list-group-item"><b>Estado:</b> {{ reserva()?.estado }}</li>
+			</ul>
+			<a class="btn btn-secondary mt-3" routerLink="/reservas">Volver</a>
+			<a class="btn btn-warning mt-3 ms-2" [routerLink]="['/reservas', reserva()?._id, 'editar']">Editar</a>
+		</div>
+	</div>
+</div>

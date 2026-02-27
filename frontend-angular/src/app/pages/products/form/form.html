@@ -1,0 +1,37 @@
+<div class="container mt-4">
+	<h2 *ngIf="!isEdit">Nuevo producto</h2>
+	<h2 *ngIf="isEdit">Editar producto</h2>
+	<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+		<div class="mb-3">
+			<label for="nombre">Nombre</label>
+			<input id="nombre" class="form-control" formControlName="nombre" [class.is-invalid]="form.get('nombre')?.invalid && form.get('nombre')?.touched" title="Nombre del producto" placeholder="Ej: Asistente Virtual" />
+			<div class="invalid-feedback" *ngIf="form.get('nombre')?.errors?.['required']">El nombre es obligatorio</div>
+			<div class="invalid-feedback" *ngIf="form.get('nombre')?.errors?.['maxlength']">Máximo 50 caracteres</div>
+		</div>
+		<div class="mb-3">
+			<label for="descripcion">Descripción</label>
+			<textarea id="descripcion" class="form-control" formControlName="descripcion" [class.is-invalid]="form.get('descripcion')?.invalid && form.get('descripcion')?.touched" title="Descripción del producto" placeholder="Describe el producto"></textarea>
+			<div class="invalid-feedback" *ngIf="form.get('descripcion')?.errors?.['required']">La descripción es obligatoria</div>
+			<div class="invalid-feedback" *ngIf="form.get('descripcion')?.errors?.['maxlength']">Máximo 200 caracteres</div>
+		</div>
+		<div class="mb-3">
+			<label for="precio">Precio</label>
+			<input id="precio" type="number" class="form-control" formControlName="precio" [class.is-invalid]="form.get('precio')?.invalid && form.get('precio')?.touched" title="Precio del producto" placeholder="0" />
+			<div class="invalid-feedback" *ngIf="form.get('precio')?.errors?.['required']">El precio es obligatorio</div>
+			<div class="invalid-feedback" *ngIf="form.get('precio')?.errors?.['min']">No puede ser negativo</div>
+		</div>
+		<div class="mb-3">
+			<label for="stock">Stock</label>
+			<input id="stock" type="number" class="form-control" formControlName="stock" [class.is-invalid]="form.get('stock')?.invalid && form.get('stock')?.touched" title="Stock disponible" placeholder="0" />
+			<div class="invalid-feedback" *ngIf="form.get('stock')?.errors?.['required']">El stock es obligatorio</div>
+			<div class="invalid-feedback" *ngIf="form.get('stock')?.errors?.['min']">No puede ser negativo</div>
+		</div>
+		<div *ngIf="error()" class="alert alert-danger">{{ error() }}</div>
+		<div *ngIf="success()" class="alert alert-success">{{ success() }}</div>
+		<button class="btn btn-primary" type="submit" [disabled]="form.invalid || loading()">
+			{{ isEdit ? 'Actualizar' : 'Crear' }}
+			<span *ngIf="loading()" class="spinner-border spinner-border-sm ms-2"></span>
+		</button>
+		<a class="btn btn-secondary ms-2" routerLink="/productos">Cancelar</a>
+	</form>
+</div>

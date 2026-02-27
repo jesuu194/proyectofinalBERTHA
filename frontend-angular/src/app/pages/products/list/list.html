@@ -1,0 +1,41 @@
+<div class="container mt-4">
+	<h2>Productos</h2>
+	<div *ngIf="loading()" class="text-center my-4">
+		<div class="spinner-border" role="status">
+			<span class="visually-hidden">Cargando...</span>
+		</div>
+	</div>
+	<div *ngIf="error()" class="alert alert-danger">{{ error() }}</div>
+	<div class="mb-3 text-end">
+		<a class="btn btn-success" routerLink="/productos/nuevo">Nuevo producto</a>
+	</div>
+	<table *ngIf="!loading() && products().length" class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Descripción</th>
+				<th>Precio</th>
+				<th>Stock</th>
+				<th>Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let p of products()">
+				<td>{{ p.nombre }}</td>
+				<td>{{ p.descripcion }}</td>
+				<td>{{ p.precio | currency:'USD' }}</td>
+				<td>{{ p.stock }}</td>
+				<td>
+					  <a class="btn btn-sm btn-info me-1" [routerLink]="['/productos', p._id || '']">Ver</a>
+					  <a class="btn btn-sm btn-warning me-1" [routerLink]="['/productos', p._id || '', 'editar']">Editar</a>
+					  <button class="btn btn-sm btn-danger" (click)="deleteProduct(p._id || '')">Eliminar</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<nav *ngIf="total() > limit" class="d-flex justify-content-between align-items-center">
+		<button class="btn btn-outline-primary" (click)="prevPage()" [disabled]="page() === 1">Anterior</button>
+		<span>Página {{ page() }}</span>
+		<button class="btn btn-outline-primary" (click)="nextPage()" [disabled]="page() * limit >= total()">Siguiente</button>
+	</nav>
+</div>

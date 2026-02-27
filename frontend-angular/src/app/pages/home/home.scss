@@ -1,0 +1,60 @@
+// Estilos para la landing de la agencia
+.landing {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 60vh;
+	text-align: center;
+}
+
+.hero h1 {
+	font-size: 2.5rem;
+	font-weight: bold;
+	margin-bottom: 1rem;
+}
+
+.hero p {
+	font-size: 1.2rem;
+	margin-bottom: 1.5rem;
+}
+
+.cta {
+	display: inline-block;
+	padding: 0.75rem 2rem;
+	background: #0d6efd;
+	color: #fff;
+	border-radius: 2rem;
+	text-decoration: none;
+	font-weight: 500;
+	margin-bottom: 2rem;
+	transition: background 0.2s;
+}
+.cta:hover {
+	background: #084298;
+}
+
+.features {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2rem;
+	justify-content: center;
+	margin-top: 2rem;
+}
+.feature {
+	background: #fff;
+	border-radius: 1rem;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+	padding: 2rem 1.5rem;
+	min-width: 220px;
+	max-width: 320px;
+}
+.feature h2 {
+	font-size: 1.3rem;
+	font-weight: 600;
+	margin-bottom: 0.5rem;
+}
+.feature p {
+	font-size: 1rem;
+	color: #444;
+}
